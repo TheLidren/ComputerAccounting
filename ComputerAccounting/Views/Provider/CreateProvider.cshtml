@@ -1,0 +1,45 @@
+﻿@model ComputerAccounting.Models.Provider
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добавить поставщика</h2>
+@using (Html.BeginForm("CreateProvider", "Provider", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Surname, "Фамилия:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Surname, new { type = "text", @class = "form-control", placeholder = "Тарасов" })
+            @Html.ValidationMessageFor(m => m.Surname)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Name, "Имя:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Name, new { type = "text", @class = "form-control", placeholder = "Дамир" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Patronymic, "Отчество:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Patronymic, new { type = "text", @class = "form-control", placeholder = "Викторович" })
+            @Html.ValidationMessageFor(m => m.Patronymic)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.PhoneNumber, "Номер телефона:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.PhoneNumber, new { type = "text", @class = "form-control", placeholder = "+375256107330" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Organization, "Организация:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Organization, new { type = "text", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Organization)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.OrganizationAdress, "Юридический адрес:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.OrganizationAdress, new { type = "text", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.OrganizationAdress)
+        </div>
+        <input type="submit" class="m-3 btn btn-primary mt-3" value="Добавить" />
+    </div>
+}
+

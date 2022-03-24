@@ -1,0 +1,36 @@
+﻿@model ComputerAccounting.Models.RepairDevices
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Отремонтировань устройство</h2>
+
+@using (Html.BeginForm("CreateRepairDevices", "RepairDevices", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.DeviceId, "Устройство:", new { @class = "mb-2" })
+            @Html.DropDownListFor(model => model.DeviceId, (SelectList)ViewBag.devices, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DeviceId)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.BrokenParts, "Сломанная деталь:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.BrokenParts, new { type = "text", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BrokenParts)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.CatalogPartsId, "Замененная деталь:", new { @class = "mb-2" })
+            @Html.DropDownListFor(model => model.CatalogPartsId, (SelectList)ViewBag.catalogparts, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CatalogPartsId)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.DateRepair, "Дата ремонта:", new { @class = "mb-2" })
+            @Html.TextBoxFor(model => model.DateRepair, new { type = "date", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DateRepair)
+        </div>
+        <input type="submit" class="m-3 btn btn-primary mt-3" value="Добавить" />
+    </div>
+}
+

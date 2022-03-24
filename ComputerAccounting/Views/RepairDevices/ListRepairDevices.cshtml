@@ -1,0 +1,59 @@
+﻿@model ComputerAccounting.ListViewModel.RepairDevicesViewModel
+@Styles.Render("~/Content/ListDevice.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ListRepairDevices", "RepairDevices", FormMethod.Get))
+{
+<div style="display:inline-block">
+    @Html.Label("Устройство:")
+    @Html.DropDownList("device", (SelectList)Model.RepairDevicesFilter.Devices, new { @class = "m-4" })
+    @Html.Label("Запчасть:")
+    @Html.DropDownList("catalogpart", (SelectList)Model.RepairDevicesFilter.CatalogParts, new { @class = "m-4" })
+    @Html.Label("Дата ремонта с:")
+    @Html.TextBox("daterepair", Model.RepairDevicesFilter.DateRepair, new { type = "date" })
+    <input type="submit" value="Фильтрация" class="btn btn-light m-4" />
+    @Html.ActionLink("Вывод MS Excel", "ExportRepairDevices", null, new { @class = "btn btn-success" })
+</div>
+}
+<table class="m-3 table table-bordered">
+    <tr align="center">
+        <th>
+            @Html.ActionLink("Устройство", "ListRepairDevices", new { deviceState = Model.RepairDevicesSort.DeviceSort, device = Model.RepairDevicesFilter.SelectedDevice, catalogpart = Model.RepairDevicesFilter.SelectedCatalogPart, daterepair = Model.RepairDevicesFilter.DateRepair })
+        </th>
+        <th>Сломанная деталь</th>
+        <th>
+            @Html.ActionLink("Замененная деталь", "ListRepairDevices", new { deviceState = Model.RepairDevicesSort.DeviceSort, device = Model.RepairDevicesFilter.SelectedDevice, catalogpart = Model.RepairDevicesFilter.SelectedCatalogPart, daterepair = Model.RepairDevicesFilter.DateRepair })
+        </th>
+        <th>
+            @Html.ActionLink("Дата ремонта", "ListRepairDevices", new { deviceState = Model.RepairDevicesSort.DateRepairSort, device = Model.RepairDevicesFilter.SelectedDevice, catalogpart = Model.RepairDevicesFilter.SelectedCatalogPart, daterepair = Model.RepairDevicesFilter.DateRepair })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.RepairDevices)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Device.Tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrokenParts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatalogParts.Tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRepair)
+            </td>
+            <td align="center">
+                @Html.ActionLink("MS Word", "ExportWord", "RepairDevices", new { repairDevicesid = item.Id }, new { @class = "btn btn-info" })
+                @*@Html.ActionLink("Редактировать", "EditRepairDevices", "RepairDevices", new { repairDevicesid = item.Id }, new { @class = "btn btn-primary" })*@
+                @Html.ActionLink("Удалить", "DeleteRepairDevices", "RepairDevices", new { repairDevicesid = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+
+    }
+</table>
+

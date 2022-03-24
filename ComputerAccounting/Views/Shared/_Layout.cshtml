@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учёт компьютерной техники</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <span class="navbar-brand">Таблицы:</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Устройства
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Просмотреть", "ListDevice", "Device", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Добавить", "CreateDevice", "Device", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Диаграммы", "ShowChart", "Device", null, new { @class = "dropdown-item", target = "_blank" })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Работники
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Просмотреть", "ListEmployee", "Employee", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Добавить", "CreateEmployee", "Employee", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Диаграммы", "ShowChart", "Employee", null, new { @class = "dropdown-item", target = "_blank" })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Поставщики
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Просмотреть", "ListProvider", "Provider", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Добавить", "CreateProvider", "Provider", null, new { @class = "dropdown-item" })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ремонт устройств
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Просмотреть", "ListRepairDevices", "RepairDevices", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Добавить", "CreateRepairDevices", "RepairDevices", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Диаграммы", "ShowChart", "RepairDevices", null, new { @class = "dropdown-item", target = "_blank" })</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Компьютерный учёт
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Просмотреть", "ListCompAccounting", "CompAccounting", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Добавить", "CreateCompAccounting", "CompAccounting", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Диаграммы", "ShowChart", "CompAccounting", null, new { @class = "dropdown-item", target = "_blank" })</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Добавить
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Тип Устройства", "CreateTypeDevice", "TypeDevice", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Должность", "CreatePosition", "Position", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Запчать", "CreateCatalogParts", "CatalogParts", null, new { @class = "dropdown-item" })</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Просмотреть
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>@Html.ActionLink("Типы стройств", "ListTypeDevice", "TypeDevice", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Должности", "ListPosition", "Position", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Запчасти", "ListCatalogParts", "CatalogParts", null, new { @class = "dropdown-item" })</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        @RenderBody()
+        <hr />
+        <footer class="body-center">
+            <p>&copy; @DateTime.Now.Year - мое приложение ASP.NET</p>
+        </footer>
+    </div>
+</body>
+</html>
+

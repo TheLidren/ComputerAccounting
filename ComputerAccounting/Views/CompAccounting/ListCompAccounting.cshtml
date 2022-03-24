@@ -1,0 +1,70 @@
+﻿@model ComputerAccounting.ListViewModel.CompAccountingViewModel
+@Styles.Render("~/Content/ListDevice.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ListCompAccounting", "CompAccounting", FormMethod.Get))
+{
+    <div style="display:inline-block">
+        @Html.Label("Название устройства:")
+        <input name="param" value="@ViewBag.param" placeholder="Введите критерий" class="m-4" />
+        @Html.Label("Устройство:")
+        @Html.DropDownList("device", (SelectList)Model.CompAccountingFilter.Devices, new { @class = "m-4" })
+        @Html.Label("Работник:")
+        @Html.DropDownList("employee", (SelectList)Model.CompAccountingFilter.Employees, new { @class = "m-4" })
+        @Html.Label("Дата получения с:")
+        @Html.TextBox("daterec", Model.CompAccountingFilter.DateRecieve, new { type = "date"  })
+        <input type="submit" value="Фильтрация" class="btn btn-light m-4" />
+        @Html.ActionLink("Вывод MS Excel", "ExportCompAccounting", null, new { @class = "btn btn-success" })
+    </div>
+}
+
+<table class="m-3 table table-bordered">
+    <tr align="center">
+        <th>
+            @Html.ActionLink("Работник", "ListCompAccounting", new { compAccountingState = Model.CompAccountingSort.EmployeeSort, device = Model.CompAccountingFilter.SelectedDevice, employee = Model.CompAccountingFilter.SelectedEmployee, daterec = Model.CompAccountingFilter.DateRecieve })
+        </th>
+        <th>
+            @Html.ActionLink("Устройство", "ListCompAccounting", new { compAccountingState = Model.CompAccountingSort.DeviceSort, device = Model.CompAccountingFilter.SelectedDevice, employee = Model.CompAccountingFilter.SelectedEmployee, daterec = Model.CompAccountingFilter.DateRecieve })
+        </th>
+        <th>Место расположения</th>
+        <th>
+            @Html.ActionLink("Дата получения", "ListCompAccounting", new { compAccountingState = Model.CompAccountingSort.DateReceiveSort, device = Model.CompAccountingFilter.SelectedDevice, employee = Model.CompAccountingFilter.SelectedEmployee, daterec = Model.CompAccountingFilter.DateRecieve })
+        </th>
+        <th>
+            @Html.ActionLink("Дата списывания", "ListCompAccounting", new { compAccountingState = Model.CompAccountingSort.DateDeleteSort, device = Model.CompAccountingFilter.SelectedDevice, employee = Model.CompAccountingFilter.SelectedEmployee, daterec = Model.CompAccountingFilter.DateRecieve })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.CompAccountings)
+    {
+        var datedelete = item.DateDelete.ToString("d");
+        var datereceive = item.DateRecieve.ToString("d");
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Surname) @Html.DisplayFor(modelItem => item.Employee.Name) @Html.DisplayFor(modelItem => item.Employee.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Device.Tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceLocated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => datereceive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => datedelete)
+            </td>
+            <td align="center">
+                @Html.ActionLink("Редактировать", "EditCompAccounting", "CompAccounting", new { compAccountingid = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("MS Word", "ExportWord", "CompAccounting", new { compAccountingid = item.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Удалить", "DeleteCompAccounting", "CompAccounting", new { compAccountingid = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+
+    }
+</table>
+

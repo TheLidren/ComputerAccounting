@@ -1,0 +1,41 @@
+﻿@model ComputerAccounting.Models.CompAccounting
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Создать компьютерный учёт</h2>
+
+@using (Html.BeginForm("CreateCompAccounting", "CompAccounting", FormMethod.Post))
+{
+<div class="form-row">
+    <div class="m-3 form-group col-md-6">
+        @Html.LabelFor(m => m.EmployeeId, "Фамилия работника:", new { @class = "mb-2" })
+        @Html.DropDownListFor(model => model.EmployeeId, (SelectList)ViewBag.employee, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EmployeeId)
+    </div>
+    <div class="m-3 form-group col-md-6">
+        @Html.LabelFor(m => m.DeviceId, "Устройство:", new { @class = "mb-2" })
+        @Html.DropDownListFor(model => model.DeviceId, (SelectList)ViewBag.devices, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DeviceId)
+    </div>
+    <div class="m-3 form-group col-md-6">
+        @Html.LabelFor(m => m.PlaceLocated, "Место расположения:", new { @class = "mb-2" })
+        @Html.TextBoxFor(m => m.PlaceLocated, new { type = "text", @class = "form-control", placeholder = "1 корпус кабинет № 10" })
+        @Html.ValidationMessageFor(m => m.PlaceLocated)
+    </div>
+    <div class="m-3 form-group col-md-6">
+        @Html.LabelFor(m => m.DateRecieve, "Дата получения:", new { @class = "mb-2" })
+        @Html.TextBoxFor(model => model.DateRecieve, new { type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateRecieve)
+    </div>
+    <div class="m-3 form-group col-md-6">
+        @Html.LabelFor(m => m.DateDelete, "Дата списывания:", new { @class = "mb-2" })
+        @Html.TextBoxFor(model => model.DateDelete, new { type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateDelete)
+    </div>
+    <input type="submit" class="m-3 btn btn-primary mt-3" value="Добавить" />
+</div>
+}
+

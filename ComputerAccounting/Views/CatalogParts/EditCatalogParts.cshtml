@@ -1,0 +1,33 @@
+﻿@model ComputerAccounting.Models.CatalogParts
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditCatalogParts", "CatalogParts", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Изменить деталь с № @Model.Id</legend>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Status)
+        <div class="form-row">
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Tittle, "Название детали:", new { @class = "mb-2" })
+                @Html.TextBoxFor(m => m.Tittle, new { type = "text", @class = "form-control", placeholder = "Видеокарта Nvidia" })
+                @Html.ValidationMessageFor(m => m.Tittle)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Count, "Количество:", new { @class = "mb-2" })
+                @Html.TextBoxFor(m => m.Count, new { type = "number", @class = "form-control", min = 1, max = 10000 })
+                @Html.ValidationMessageFor(m => m.Count)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Price, "Стоимость детали:", new { @class = "mb-2" })
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Price)
+            </div>
+            <input type="submit" class="m-3 btn btn-primary mt-3" value="Сохранить" />
+        </div>
+    </fieldset>
+}

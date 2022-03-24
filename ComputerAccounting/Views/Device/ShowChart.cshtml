@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ComputerAccounting.Models.Device>
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+@using (Html.BeginForm("ShowChart", "Device", FormMethod.Get))
+    {
+        <div style="display:inline-block">
+            @Html.Label("Поставщик:")
+            @Html.DropDownList("provider", (SelectList)ViewBag.Providers, new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Показать" class="btn btn-light m-4" />
+    }
+
+<script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Название', 'Стоимость'],
+                @foreach (var data in Model) {
+                <text>['@data.Tittle', @Math.Round(data.Price, MidpointRounding.AwayFromZero)],</text>
+            }
+            ]);
+            var options = {
+                title: 'График цены устройств',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('mychart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <div id="mychart" style="width: 900px; height: 500px"></div>
+

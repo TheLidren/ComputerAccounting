@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ComputerAccounting.Models.Position>
+@Styles.Render("~/Content/ListInformation.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="m-3 table table-bordered">
+    <tr align ="center">
+        <th>Название</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tittle)
+            </td>
+            <td align="center">
+                @Html.ActionLink("Редактировать", "EditPosition", "Position", new { positionid = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Удалить", "DeletePosition", "Position", new { positionid = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>   
+    }
+</table>
+

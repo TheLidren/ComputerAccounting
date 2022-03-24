@@ -1,0 +1,76 @@
+﻿@model ComputerAccounting.ListViewModel.DeviceViewModel
+@Styles.Render("~/Content/ListDevice.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ListDevice", "Device", FormMethod.Get))
+    {
+        <div style="display:inline-block">
+            @Html.Label("Название критерий:")
+            <input name="param" value="@ViewBag.param" placeholder="Введите критерий" class="m-4" />
+            @Html.Label("Тип устройства:")
+            @Html.DropDownList("typedevice", (SelectList)Model.DeviceFilter.TypeDevices, new { @class = "m-4" })
+            @Html.Label("Поставщик:")
+            @Html.DropDownList("provider", (SelectList)Model.DeviceFilter.Providers, new { @class = "m-4" })
+            <input type="submit" value="Фильтрация" class="btn btn-light m-4" />
+            @Html.ActionLink("Вывод MS Excel", "ExportDevice", null, new { @class = "btn btn-success" })
+        </div>
+    }
+<table class="m-3 table table-bordered">
+    <tr align="center">
+        <th>
+            @Html.ActionLink("Название", "ListDevice", new { deviceState = Model.DeviceSort.TittleSort, typedevice = Model.DeviceFilter.SelectedTypeDevice, provider = Model.DeviceFilter.SelectedProvider, @param = ViewBag.param })
+        </th>
+        <th>
+            @Html.ActionLink("Тип", "ListDevice", new { deviceState = Model.DeviceSort.TypeDeviceSort, typedevice = Model.DeviceFilter.SelectedTypeDevice, provider = Model.DeviceFilter.SelectedProvider, @param = ViewBag.param })
+        </th>
+        <th>
+            @Html.ActionLink("Поставщик", "ListDevice", new { deviceState = Model.DeviceSort.ProviderSort, typedevice = Model.DeviceFilter.SelectedTypeDevice, provider = Model.DeviceFilter.SelectedProvider, @param = ViewBag.param })
+        </th>
+        <th>Организация</th>
+        <th width="10%">Характеристика</th>
+        <th>
+            @Html.ActionLink("Цена", "ListDevice", new { deviceState = Model.DeviceSort.PriceSort, typedevice = Model.DeviceFilter.SelectedTypeDevice, provider = Model.DeviceFilter.SelectedProvider, @param = ViewBag.param })
+        </th>
+        <th>
+            @Html.ActionLink("Дата покупки", "ListDevice", new { deviceState = Model.DeviceSort.DateBuySort, typedevice = Model.DeviceFilter.SelectedTypeDevice, provider = Model.DeviceFilter.SelectedProvider, @param = ViewBag.param })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Devices)    
+    {
+        var date = item.DateBuy.ToString("d");
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeDevice.Tittle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provider.Surname) @Html.DisplayFor(modelItem => item.Provider.Name) @Html.DisplayFor(modelItem => item.Provider.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provider.Organization)
+            </td>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.Characteristics)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) руб
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => date)
+            </td>
+            <td align="center">
+                @Html.ActionLink("Редактировать", "EditDevice", "Device", new { deviceid = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("MS Word", "ExportWord", "Device", new { deviceid = item.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Удалить", "DeleteDevice", "Device", new { deviceid = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+
+    }
+</table>
+

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ComputerAccounting.Models.User>
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<table class="container mt-4 table table-bordered">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <th>Email</th>
+        <th width="20%"></th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>@user.Patronymic</td>
+            <td>@user.Email</td>
+            <td>
+                <form asp-action="DeleteUser" asp-controller="Account" asp-route-id="@user.Id" method="post" class="text-center">
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

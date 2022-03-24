@@ -1,0 +1,65 @@
+﻿@model ComputerAccounting.ListViewModel.EmployeeViewModel
+@Styles.Render("~/Content/ListDevice.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@using (Html.BeginForm("ListEmployee", "Employee", FormMethod.Get, new { @class = "form-group row mt-3" }))
+    {
+        @Html.Label("Критерий фильтра:", new { @class = "col-md-4" })
+        <input name="param" value="@ViewBag.param" class="col-md-3" placeholder="Введите критерий"  />
+        @Html.Label("Должность:", new { @class = "col-md-2" })
+        @Html.DropDownList("position", (SelectList)Model.Positions, new { @class = "col-md-3" })
+        <input type="submit" value="Фильтр" class="btn btn-default col-md-2" />
+    }*@
+@using (Html.BeginForm("ListEmployee", "Employee", FormMethod.Get))
+    {
+        <div style="display:inline-block">
+            @Html.Label("Критерий фильтра:")
+            <input name="param" value="@ViewBag.param" placeholder="Введите критерий" class="m-4" />
+            @Html.Label("Должность:")
+            @Html.DropDownList("position", (SelectList)Model.FilterViewModel.Positions, new { @class = "m-4" })
+            <input type="submit" value="Фильтрация" class="btn btn-light m-4" />
+            @Html.ActionLink("Вывод MS Excel", "ExportEmployee", null, new { @class = "btn btn-success" })
+        </div>
+    }
+<table class="m-3 table table-bordered">
+    <tr align="center">
+        <th>
+            @Html.ActionLink("ФИО", "ListEmployee", new { @sortOrder = Model.SortViewModel.SurnameSort, @position = Model.FilterViewModel.SelectedPosition, @param = ViewBag.param })
+        </th>
+        <th>Номер телефона</th>
+        <th>
+            @Html.ActionLink("Дата трудоустройства", "ListEmployee", new { @sortOrder = Model.SortViewModel.DateWorkSort, @position = Model.FilterViewModel.SelectedPosition, @param = ViewBag.param })
+        </th>
+        <th>
+            @Html.ActionLink("Должность", "ListEmployee", new { @sortOrder = Model.SortViewModel.PositionSort, @position = Model.FilterViewModel.SelectedPosition, @param = ViewBag.param })
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Employees)
+    {
+        var date = item.DateWork.ToString("d");
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname) @Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position.Tittle)
+            </td>
+            <td align="center">
+                @Html.ActionLink("Редактировать", "EditEmployee", "Employee", new { employeeid = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("MS Word", "ExportWord", "Employee", new { employeeid = item.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Удалить", "DeleteEmployeer", "Employee", new { employeeid = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+
+    }
+</table>
+

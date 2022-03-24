@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ComputerAccounting.Models.RepairDevices>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    google.charts.load("current", { packages: ["calendar"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart()
+    {
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'date', id: 'Дата ремонта' });
+        dataTable.addColumn({ type: 'number', id: 'Стоимость' });
+        dataTable.addRows
+            ([
+                @foreach (var data in Model)
+                {
+                <text>[new Date(@data.DateRepair.Year, @data.DateRepair.Month - 1, @data.DateRepair.Day), @data.CatalogParts.Price],</text>
+                }
+            ]);
+        var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
+        var options =
+        {
+             title: "График ремонта устройств",
+             height: 350,
+        };
+        chart.draw(dataTable, options);
+    }
+</script>
+    <div id="calendar_basic" style="width: 1000px; height: 350px;"></div>

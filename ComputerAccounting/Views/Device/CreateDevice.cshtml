@@ -1,0 +1,48 @@
+﻿@model ComputerAccounting.Models.Device
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добавить устройство</h2>
+
+@using (Html.BeginForm("CreateDevice", "Device", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Tittle, "Название устройства:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Tittle, new { type = "text", @class = "form-control", placeholder = "Lenovo Legion Y530" })
+            @Html.ValidationMessageFor(m => m.Tittle)
+        </div>
+        <div class="m-2 form-group col-md-6">
+            @Html.LabelFor(m => m.TypeDeviceId, "Тип устройства:", new { @class = "mb-2" })
+            @Html.DropDownListFor(model => model.TypeDeviceId, (SelectList)ViewBag.typedevices, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.TypeDeviceId)
+        </div>
+        <div class="m-2 form-group col-md-6">
+            @Html.LabelFor(m => m.TypeDeviceId, "Фамилия поставщика:", new { @class = "mb-2" })
+            @Html.DropDownListFor(model => model.ProviderId, (SelectList)ViewBag.providers, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ProviderId)
+        </div>
+          <div class="m-2 form-group col-md-6">
+            @Html.LabelFor(m => m.Characteristics, "Характеристика устройства:", new { @class = "mb-2" })
+            @Html.TextAreaFor(m => m.Characteristics, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Characteristics)
+        </div>
+        <div class="m-2 form-group col-md-6">
+            @Html.LabelFor(m => m.DateBuy, "Дата покупки:", new { @class = "mb-2" })
+            @Html.TextBoxFor(model => model.DateBuy, new { type = "date", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DateBuy)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Price, "Стоимость устройства:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Price)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            <input type="submit" class="btn btn-primary" value="Добавить" />
+        </div>
+    </div>
+}
+

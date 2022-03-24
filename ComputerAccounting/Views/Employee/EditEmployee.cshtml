@@ -1,0 +1,48 @@
+﻿@model ComputerAccounting.Models.Employee
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditEmployee", "Employee", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Status)
+<fieldset>
+    <legend>Изменить работника с № @Model.Id</legend>
+    <div class="form-row">
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Surname, "Фамилия:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Surname, new { type = "text", @class = "form-control", placeholder = "Садовская" })
+            @Html.ValidationMessageFor(m => m.Surname)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Name, "Имя:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Name, new { type = "text", @class = "form-control", placeholder = "Валентина" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.Patronymic, "Отчество:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.Patronymic, new { type = "text", @class = "form-control", placeholder = "Леонидовна" })
+            @Html.ValidationMessageFor(m => m.Patronymic)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.PhoneNumber, "Номер телефона:", new { @class = "mb-2" })
+            @Html.TextBoxFor(m => m.PhoneNumber, new { type = "text", @class = "form-control", placeholder = "+375256107330" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.DateWork, "Дата трудоустройства:", new { @class = "mb-2" })
+            @Html.TextBoxFor(model => model.DateWork, new { type = "date", @class = "form-control", @Value = Model.DateWork.ToString("yyyy-MM-dd"), @readonly= "readonly" })
+            @Html.ValidationMessageFor(m => m.DateWork)
+        </div>
+        <div class="m-3 form-group col-md-6">
+            @Html.LabelFor(m => m.PositionId, "Должность:", new { @class = "mb-2" })
+            @Html.DropDownListFor(model => model.PositionId, (SelectList)ViewBag.positions, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PositionId)
+        </div>
+        <input type="submit" class="m-3 btn btn-primary mt-3" value="Сохранить" />
+    </div>
+</fieldset>
+}

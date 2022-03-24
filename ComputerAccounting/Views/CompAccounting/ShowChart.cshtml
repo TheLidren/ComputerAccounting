@@ -1,0 +1,28 @@
+﻿@model ComputerAccounting.Models.LineChartModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable
+            ([
+                ['Работник', 'Количество устройств'],
+                @foreach (var data in Model.chartDataList) {
+                <text>['@data.EmployeeId', @data.CountDevice],</text>
+                }
+            ]);
+
+        var options = {
+            legend: 'none',
+            pieSliceText: 'label',
+            title: 'Распределение компьютерного оборудования',
+            pieStartAngle: 100,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
+<div id="piechart" style="width: 900px; height: 500px;"></div>

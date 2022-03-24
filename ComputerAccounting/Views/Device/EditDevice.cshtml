@@ -1,0 +1,52 @@
+﻿@model ComputerAccounting.Models.Device
+@Html.ValidationSummary(true)
+@Styles.Render("~/Content/ValidCreate.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditDevice", "Device", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Status)
+    <fieldset>
+        <legend>Изменить устройство с № @Model.Id</legend>
+        <div class="form-row">
+            <div class="m-3 form-group col-md-6">
+                @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Tittle, "Название устройства:", new { @class = "mb-2" })
+                @Html.TextBoxFor(m => m.Tittle, new { type = "text", @class = "form-control", placeholder = "Lenovo Legion Y530" })
+                @Html.ValidationMessageFor(m => m.Tittle)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.TypeDeviceId, "Тип устройства:", new { @class = "mb-2" })
+                @Html.DropDownListFor(model => model.TypeDeviceId, (SelectList)ViewBag.typedevices, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TypeDeviceId)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.ProviderId, "Фамилия поставщика:", new { @class = "mb-2" })
+                @Html.DropDownListFor(model => model.ProviderId, (SelectList)ViewBag.providers, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ProviderId)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Characteristics, "Характеристика устройства:", new { @class = "mb-2" })
+                @Html.TextAreaFor(m => m.Characteristics, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Characteristics)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.DateBuy, "Дата покупки:", new { @class = "mb-2" })
+                @Html.TextBoxFor(model => model.DateBuy, new { type = "date", @class = "form-control", @Value = Model.DateBuy.ToString("yyyy-MM-dd"), @readonly = "readonly" })
+                @Html.ValidationMessageFor(m => m.DateBuy)
+            </div>
+            <div class="m-3 form-group col-md-6">
+                @Html.LabelFor(m => m.Price, "Стоимость устройства:", new { @class = "mb-2" })
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Price)
+            </div>
+            <input type="submit" class="m-3 btn btn-primary mt-3" value="Сохранить" />
+        </div>
+    </fieldset>
+}
+
