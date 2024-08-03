@@ -7,9 +7,9 @@ using System.Data.Entity;
 using System;
 using ComputerAccounting.ListViewModel;
 using System.Collections.Generic;
-using ClosedXML.Excel;
 using System.IO;
 using ComputerAccounting.App_Start;
+using ClosedXML.Excel;
 
 namespace ComputerAccounting.Controllers
 {
@@ -29,7 +29,7 @@ namespace ComputerAccounting.Controllers
         public ActionResult ExportCompAccounting()
         {
             List<CompAccounting> compAccountings = db.CompAccountings.Include(m => m.Device).Include(m => m.Employee).Where(m => m.Status).ToList();
-            using XLWorkbook workbook = new(XLEventTracking.Disabled);
+            XLWorkbook workbook = new();
             var worksheet = workbook.Worksheets.Add("КомпУчёт");
             worksheet.Cell("A1").Value = "Работник";
             worksheet.Cell("B1").Value = "Устройство";

@@ -7,9 +7,9 @@ using System.Data.Entity;
 using ComputerAccounting.ListViewModel;
 using System;
 using System.Collections.Generic;
-using ClosedXML.Excel;
 using System.IO;
 using ComputerAccounting.App_Start;
+using ClosedXML.Excel;
 
 namespace ComputerAccounting.Controllers
 {
@@ -27,7 +27,7 @@ namespace ComputerAccounting.Controllers
         public ActionResult ExportRepairDevices()
         {
             List<RepairDevices> repairDevices = db.RepairDevices.Include(m => m.CatalogParts).Include(m => m.Device).Where(m => m.Status).ToList();
-            using XLWorkbook workbook = new(XLEventTracking.Disabled);
+            XLWorkbook workbook = new();
             var worksheet = workbook.Worksheets.Add("Ремонт устройств");
             worksheet.Cell("A1").Value = "Устройство";
             worksheet.Cell("B1").Value = "Сломанная деталь";

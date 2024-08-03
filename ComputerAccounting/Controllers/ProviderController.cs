@@ -20,7 +20,7 @@ namespace ComputerAccounting.Controllers
         public ActionResult ExportProvider()
         {
             List<Provider> providers = db.Providers.Where(m => m.Status).ToList();
-            using XLWorkbook workbook = new(XLEventTracking.Disabled);
+            XLWorkbook workbook = new();
             var worksheet = workbook.Worksheets.Add("Поставщики");
             worksheet.Cell("A1").Value = "ФИО";
             worksheet.Cell("B1").Value = "Номер телефона";

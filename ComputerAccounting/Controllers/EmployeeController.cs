@@ -29,7 +29,7 @@ namespace ComputerAccounting.Controllers
         public ActionResult ExportEmployee()
         {   
             List<Employee> employees = db.Employees.Include(p => p.Position).Where(m => m.Status).ToList();
-            using XLWorkbook workbook = new(XLEventTracking.Disabled);
+            XLWorkbook workbook = new();
             var worksheet = workbook.Worksheets.Add("Работники");
             worksheet.Cell("A1").Value = "ФИО";
             worksheet.Cell("B1").Value = "Номер телефона";

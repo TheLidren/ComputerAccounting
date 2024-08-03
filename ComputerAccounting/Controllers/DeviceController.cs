@@ -10,8 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using System.Web.UI.DataVisualization.Charting;
-using System.Drawing;
 
 namespace ComputerAccounting.Controllers
 {
@@ -23,7 +21,7 @@ namespace ComputerAccounting.Controllers
         public ActionResult ExportDevice()
         {
             List<Device> devices = db.Devices.Include(p => p.TypeDevice).Include(p => p.Provider).Where(m => m.Status).ToList();
-            using XLWorkbook workbook = new(XLEventTracking.Disabled);
+            XLWorkbook workbook = new();
             var worksheet = workbook.Worksheets.Add("Устройства");
             worksheet.Cell("A1").Value = "Устройство";
             worksheet.Cell("B1").Value = "Тип";
